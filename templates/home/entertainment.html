@@ -4,7 +4,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Technology News | Global News Network</title>
+    <title>Entertainment News | Global News Network</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
   <body>
@@ -12,9 +12,21 @@
 
     <!-- Main Content -->
     <main class="main-content">
-        <h1>Latest News</h1>
-    
-    
+      <h1>Entertainment News</h1>
+      <div class="news-container">
+          {% for news in news_items %}
+              <div class="news-item">
+                  {% if news.image %}
+                      <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                  {% endif %}
+                  <h2>{{ news.title }}</h2>
+                  <p>{{ news.description }}</p>
+                  <a href="{% url 'news_detail' id=news.id %}">Read more</a>
+              </div>
+          {% empty %}
+              <p>No news available in this category.</p>
+          {% endfor %}
+      </div>
     </main>
     {% endblock %} {% include 'includes/footer.html' %}
 

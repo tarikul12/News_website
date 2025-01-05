@@ -29,20 +29,6 @@
     
     </main>
 
-    {% comment %} {% for category, news_list in categorized_news.items %}
-    <h2>{{ category }}</h2>
-    <ul>
-      {% for news in news_list %}
-        <li>
-          <!-- Pass the `id` to the `news_detail` URL -->
-          <a href="{% url 'news_detail' id=news.id %}">{{ news.title }}</a>
-        </li>
-      {% endfor %}
-    </ul>
-  {% endfor %} {% endcomment %}
-  
-
-
     {% endblock %} {% include 'includes/footer.html' %}
 
     <script src="{% static 'js/scripts.js' %}"></script>

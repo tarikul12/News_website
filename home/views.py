@@ -15,6 +15,19 @@ def news_detail(request, id):
     # Render the news detail page with the specific news item
     return render(request, 'home/news_detail.html', {'news_item': news_item})
 
+def category_view(request, category):
+    # Fetch news items for the given category
+    news_items = NewsItem.objects.filter(category=category).order_by('-created_at')
+
+    # Context passed to the template
+    context = {
+        'news_items': news_items,
+        'category': category,
+    }
+
+    # Render template dynamically based on category
+    return render(request, f'home/{category.lower()}.html', context)
+
 
 def world(request):
     return render(request,'home/world.html')
