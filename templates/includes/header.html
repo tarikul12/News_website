@@ -1,0 +1,17 @@
+{% load static %}
+<header class="header">
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Global News Network Logo">
+    </div>
+    <nav class="nav">
+        <a href="{% url 'index' %}" class="{% if request.resolver_match.url_name == 'home' %}active{% endif %}">Home</a>
+        <a href="{% url 'world' %}" class="{% if request.resolver_match.url_name == 'world' %}active{% endif %}">World</a>
+        <a href="{% url 'politics' %}" class="{% if request.resolver_match.url_name == 'politics' %}active{% endif %}">Politics</a>
+        <a href="{% url 'technology' %}" class="{% if request.resolver_match.url_name == 'technology' %}active{% endif %}">Technology</a>
+        <a href="{% url 'business' %}" class="{% if request.resolver_match.url_name == 'business' %}active{% endif %}">Business</a>
+        <a href="{% url 'science' %}" class="{% if request.resolver_match.url_name == 'science' %}active{% endif %}">Science</a>
+        <a href="{% url 'sports' %}" class="{% if request.resolver_match.url_name == 'sports' %}active{% endif %}">Sports</a>
+        <a href="{% url 'entertainment' %}" class="{% if request.resolver_match.url_name == 'entertainment' %}active{% endif %}">Entertainment</a>
+    </nav>
+    
+</header>

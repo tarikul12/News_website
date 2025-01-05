@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ news_item.title }}</title>
+</head>
+<body>
+    {% comment %} <p>{{news_item.id}}</p> {% endcomment %}
+    <h1>{{ news_item.title }}</h1>
+    <h3>{{ news_item.subheading }}</h3>
+    <img src="{{ news_item.image.url }}" alt="{{ news_item.title }}">
+    <p><strong>Description:</strong> {{ news_item.description }}</p>
+    <p>{{ news_item.content }}</p>
+    <h4>Category: {{ news_item.category }}</h4>
+    <p>Published on: {{ news_item.created_at }}</p>
+    <p>Last modified on: {{ news_item.modified_at }}</p>
+    {% if news_item.href_link %}
+    <a href="{{ news_item.href_link }}" target="_blank">Read more</a>
+    {% endif %}
+    <a href="/">Back to Home</a>
+</body>
+</html>

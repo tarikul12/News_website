@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Global News Network</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    {% include 'includes/header.html' %} {% block content %}
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <h1>Latest News</h1>
+
+      <div class="news-container">
+        <!-- Loop through all the news items -->
+        {% for news in news_list %}
+            <div class="news-item" id="news-{{ news.id }}">
+                <img src="{{ news.image.url }}" alt="{{ news.title }}">
+                <h3>{{ news.title }}</h3>
+                <p><strong>Description:</strong> {{ news.description }}</p>
+                <!-- Link to the news detail page with the specific ID -->
+                <a href="{% url 'news_detail' id=news.id %}">Read more</a>
+            </div>
+        {% endfor %}
+    </div>
+    
+    </main>
+
+    {% comment %} {% for category, news_list in categorized_news.items %}
+    <h2>{{ category }}</h2>
+    <ul>
+      {% for news in news_list %}
+        <li>
+          <!-- Pass the `id` to the `news_detail` URL -->
+          <a href="{% url 'news_detail' id=news.id %}">{{ news.title }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endfor %} {% endcomment %}
+  
+
+
+    {% endblock %} {% include 'includes/footer.html' %}
+
+    <script src="{% static 'js/scripts.js' %}"></script>
+  </body>
+</html>

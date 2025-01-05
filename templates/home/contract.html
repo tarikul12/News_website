@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: system-ui, -apple-system, sans-serif;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 40px auto;
+            padding: 20px;
+        }
+
+        h1 {
+            color: #0a192f;
+            margin-bottom: 10px;
+            font-size: 2rem;
+        }
+
+        .subtitle {
+            color: #64748b;
+            margin-bottom: 30px;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #0a192f;
+            margin-bottom: 8px;
+            font-weight: 500;
+        }
+
+        input, textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: #64748b;
+        }
+
+        textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        button {
+            background-color: #647f7f;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: background-color 0.2s;
+        }
+
+        button:hover {
+            background-color: #4f6363;
+        }
+
+        .error {
+            color: #dc2626;
+            font-size: 0.875rem;
+            margin-top: 4px;
+            display: none;
+        }
+
+        input.error-field, textarea.error-field {
+            border-color: #dc2626;
+        }
+
+        .arrow-icon {
+            width: 16px;
+            height: 16px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact</h1>
+        <p class="subtitle">Leave your information so that we can reach you ASAP</p>
+        
+        <form id="contactForm" onsubmit="return handleSubmit(event)">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input 
+                    type="email" 
+                    id="email" 
+                    name="email" 
+                    placeholder="Enter your Email"
+                    required
+                >
+                <p class="error" id="emailError">Please enter a valid email address</p>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input 
+                    type="tel" 
+                    id="phone" 
+                    name="phone" 
+                    placeholder="Enter Phone Number"
+                    required
+                >
+                <p class="error" id="phoneError">Please enter a valid phone number</p>
+            </div>
+
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea 
+                    id="description" 
+                    name="description" 
+                    placeholder="Enter your message"
+                    required
+                ></textarea>
+                <p class="error" id="descriptionError">Please provide a description</p>
+            </div>
+
+            <button type="submit">
+                SUBMIT NOW
+                <svg class="arrow-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M5 12h14m-7-7l7 7-7 7"></path>
+                </svg>
+            </button>
+        </form>
+    </div>
+
+    <script>
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function validatePhone(phone) {
+            return /^\+?[\d\s-]{10,}$/.test(phone);
+        }
+
+        function showError(field, show) {
+            const errorElement = document.getElementById(`${field}Error`);
+            const inputElement = document.getElementById(field);
+            
+            errorElement.style.display = show ? 'block' : 'none';
+            if (show) {
+                inputElement.classList.add('error-field');
+            } else {
+                inputElement.classList.remove('error-field');
+            }
+        }
+
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const description = document.getElementById('description').value;
+            
+            let isValid = true;
+
+            // Validate email
+            if (!validateEmail(email)) {
+                showError('email', true);
+                isValid = false;
+            } else {
+                showError('email', false);
+            }
+
+            // Validate phone
+            if (!validatePhone(phone)) {
+                showError('phone', true);
+                isValid = false;
+            } else {
+                showError('phone', false);
+            }
+
+            // Validate description
+            if (description.trim().length < 1) {
+                showError('description', true);
+                isValid = false;
+            } else {
+                showError('description', false);
+            }
+
+            if (isValid) {
+                // Here you would typically send the form data to your server
+                console.log('Form submitted:', { email, phone, description });
+                alert('Form submitted successfully!');
+                document.getElementById('contactForm').reset();
+            }
+
+            return false;
+        }
+
+        // Add input event listeners to clear errors on type
+        ['email', 'phone', 'description'].forEach(field => {
+            document.getElementById(field).addEventListener('input', () => {
+                showError(field, false);
+            });
+        });
+    </script>
+</body>
+</html>
